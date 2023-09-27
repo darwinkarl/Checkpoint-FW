@@ -1,0 +1,93 @@
+How to debug the Gaia Portal - sk84561
+
+		// Solution //
+
+1. Backup the current /web/conf/httpd2.conf file:
+
+# cp /web/conf/httpd2.conf  /web/conf/httpd2.conf_ORIGINAL
+
+
+
+2. Set the log level to debug:
+
+# sed -ie 's/^LogLevel .*$/LogLevel debug/' /web/conf/httpd2.conf
+
+
+
+3. Add some mark into the relevant log files for starting the debug:
+(It will make it easier to filter the logs afterward)
+
+# echo 'Debug Start' >> /var/log/httpd2_error_log
+# echo 'Debug Start' >> /var/log/httpd2_access_log
+# echo 'Debug Start' >> /var/log/secure
+# echo 'Debug Start' >> /var/log/messages
+# echo 'Debug Start' >> /usr/local/apache2/logs/access_log
+
+
+
+4. Restart the web server (use the following 2 commands, one after the other):
+
+# tellpm process:httpd2
+# tellpm process:httpd2 t
+
+
+
+5. Add a mark into the relevant log files for starting the replication:
+
+# echo 'Replication Start' >> /var/log/httpd2_error_log
+# echo 'Replication Start' >> /var/log/httpd2_access_log
+# echo 'Replication Start' >> /var/log/secure
+# echo 'Replication Start' >> /var/log/messages
+# echo 'Replication Start' >> /usr/local/apache2/logs/access_log
+
+
+
+6. Replicate the issue. Verify that the issue has been replicated.
+
+7. Add a mark into the relevant log files for ending the debug:
+
+# echo 'Debug End' >> /var/log/httpd2_error_log
+# echo 'Debug End' >> /var/log/httpd2_access_log
+# echo 'Debug End' >> /var/log/secure
+# echo 'Debug End' >> /var/log/messages
+# echo 'Debug End' >> /usr/local/apache2/logs/access_log
+
+
+
+8. Collect these files from the problematic Gaia machine
+
+CPinfo
+/var/log/httpd2_error_log*
+/var/log/httpd2_access_log*
+/var/log/secure*
+/var/log/messages*
+/usr/local/apache2/logs/access_log*
+
+
+
+9. Run the HTTPD2 daemon manually and copy the error message:
+
+	A. Check the arguments that need to be used:
+	# dbget -rva process:httpd2:arg
+
+	B. Copy all the flags and run the httpd2 manually.
+	Example:
+	# /opt/CPshrd-R75.40/web/Apache/2.2.0/bin/httpd2 -k start -f /web/conf/httpd2.conf -D FOREGROUND
+
+	C. Copy the error message from the standard output.
+
+
+10. Restore the original /web/conf/httpd2.conf file:
+
+# cp /web/conf/httpd2.conf  /web/conf/httpd2.conf_DEBUG
+# cp /web/conf/httpd2.conf_ORIGINAL  /web/conf/httpd2.conf
+
+
+
+11. Restart the web server (use the following 2 commands, one after the other):
+
+# tellpm process:httpd2
+# tellpm process:httpd2 t
+
+
+12. Send the collected files to Check Point Support for analysis.
