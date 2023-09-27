@@ -1,0 +1,17 @@
+df -h /var/log
+
+
+// log exporter restart //
+[expert]# cp_log_export reconf
+[expert]# cp_log_export restart
+
+generating cpinfo file on the specific directory
+sk92739
+[expert]# cpinfo -D -z -x -i -o /var/temp/CPINFO_Name.cpinfo
+
+after generating cpinfo you can use FTP software like WinSCP,FileZilla
+
+
+
+shows installed hotfixes
+cpinfo -y all
