@@ -1,0 +1,38 @@
+"Connection with <Security Gateway name> is lost" error in SmartConsole
+
+                    // Cause //
+      Power fluctuation and power interruption
+
+The cpd_config -p | grep -A 8 '"amon"' command shows a strange Dll Name:
+
+AddOn: "amon"
+Dll Name: 97▒Ys▒▒Stext.so
+Constructor: register_amon_addon
+Destructor: deregister_amon_addon
+Enabled: yes
+Dll Module: N/A
+Dll Version: N/A
+Dll Build: N/A
+Dll Configuration: N/A
+
+                    // Solution //
+
+#cpstop                                                // Stop Check Point services //
+#cp -v $CPDIR/registry/HKLM_registry.data{,.BACKUP}    // Back up the registry //
+#vi $CPDIR/registry/HKLM_registry.data
+
+Replace the corrupt Dll Name (refer to the root cause section of this article for an example) with the correct one:
+: (amon
+       :"Dll Name" (libcpstatext.so)
+       :"AddOn Constructor" (register_amon_addon)
+       :"AddOn Destructor" (deregister_amon_addon)
+       :Enabled ("[4]1")
+
+Save the file:
+:wq
+
+#cpstart
+
+
+
+
