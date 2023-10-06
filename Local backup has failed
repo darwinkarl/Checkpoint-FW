@@ -1,0 +1,18 @@
+Issue
+
+local backup has failed.
+Cannot complete the backup process not enough space in /var/log/CPbackup/backups.
+Backup operation failed.
+
+
+		        // Cannot System Backup var/log full //
+
+  // Please find the reference sk166392. Also provide the below file on the case //
+
+/var/log/CPbackup.elg file. 
+
+Please try to delete the logs from $FWDIR/log/. Also, share the output of the below command.
+
+# du -h --max-depth=1 /var/log/ | sort -n -r
+
+# du -h --max-depth=1 /var/log/crash
