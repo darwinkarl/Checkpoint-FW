@@ -1,0 +1,18 @@
+https://support.checkpoint.com/results/sk/sk95566
+
+Important Notes
+Do a backup/snapshot before you proceed.
+For backup instructions, refer to sk108902 - Best Practices - Backup on Gaia OS.
+
+Reboot and do the procedure in Maintenance Mode only.
+Refer to sk109047 - How to enter the Boot menu on Gaia OS.
+
+It takes some minutes to change a partition size.
+
+To enter maintenance mode in the cloud, refer to sk170732 - Maintenance mode for Azure, AWS and Google Cloud Platform (GCP) 
+
+There is no console in Amazon Web Services (AWS). As a result, there is no access to Maintenance Mode.
+
+To increase the timeout value to boot into Maintenance Mode, refer to sk128112 - How to increase the timeout value to boot into maintenance mode.
+
+It is not necessary to allocate disk space to the reserved backup/upgrade partition when you increase the "log" partition. 
