@@ -1,0 +1,10 @@
+// Performing Healthcheck Point Report //
+
+// to generate report //
+#hcp -r all 
+
+
+#ls -l /var/log/crash
+Spike detective logs
+/var/log/messages
+Please make sure the time of the issue covers in the provided log files.
