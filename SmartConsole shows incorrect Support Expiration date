@@ -1,0 +1,34 @@
+// Device & License Information section in SmartConsole shows incorrect "Support Expiration date" - sk171921 //
+
+                                  // Cause //
+// Incorrect entry in the Entitlement database file - $CPDIR/database/EntMgr_DB.xml //
+
+
+                // Solution //
+// Create a new Entitlement database file //
+
+Note: Close all SmartConsole clients connected to the the Management Server.
+
+// On Security Management Server // 
+
+// stop the services //
+#cpstop
+
+//Rename the existing Entitlement database file//
+#mv -v $CPDIR/database/EntMgr_DB.xml{,_BKP}    
+
+// Start the Check Point Services // 
+#cpstart
+
+// Make sure the Management Server created the new file // 
+#ls -l $CPDIR/database/EntMgr_DB.xml
+Done!!!
+
+
+// On a Multi-Domain Server, enter the context of the applicable Domain Management Server //
+#mdsenv <IP Address or Name of Domain Management Server>
+#mdsstop_customer <IP Address or Name of Domain Management Server>
+#mv -v $CPDIR/database/EntMgr_DB.xml{,_BKP}    
+#mdsstart_customer <IP Address or Name of Domain Management Server>
+#ls -l $CPDIR/database/EntMgr_DB.xml
+Done!!
