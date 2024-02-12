@@ -1,0 +1,37 @@
+sk164553
+
+How to re-index a specific log file
+
+//	              	Solution	              	//
+
+To re-index a log file whose index file was deleted:
+
+1. Follow sk111766 to assure the days_to_index value matches the log age.
+
+2. Backup the FetchedFiles file:
+   # cp /var/log/opt/CPrt-R*/log_indexer/data/FetchedFiles /var/log/opt/CPrtR*/log_indexer/data/FetchedFiles_Orig
+
+3. Stop the services:
+   On a Multi-Domain Server, run: # mdsstop
+   On a Security Management Server / Log server, run: # cpstop
+
+4. Change the value of the specific log whose index was deleted from 1 (indexed) to 0 (yet to be indexed):
+
+ For example:
+
+	Log file name: $FWDIR/log/2019-11-08_143254_26.log
+	[Expert@HostName:0]# grep -i 2019-11-08_143254_26.log /var/log/opt/CPrt-R*/log_indexer/data/FetchedFiles
+
+	3746 11 10.5.139.23 24 2019-11-08_143254_26.log 1573185368 1 8142821 0 0 3
+
+	Change to:
+	[Expert@HostName:0]# vi /var/log/opt/CPrt-R*/log_indexer/data/FetchedFiles
+
+	3746 11 10.5.139.23 24 2019-11-08_143254_26.log 1573185368 0 8142821 0 0 3
+
+
+5. Start the services:
+   On a Multi-Domain Server, run: # mdsstart
+   On a Security Management Server / Log server, run: # cpstart
+
+Now the log_indexer process will start re-indexing the log.
