@@ -1,0 +1,12 @@
+IPS-Update-Failed
+
+
+1) DNS server settings
+2) f necessary proxy settings
+3) default route to internet
+4) correct hide NAT settings
+5) access rules
+
+# ping updates.checkpoint.com
+# curl_cli https://updates.checkpoint.com
+
