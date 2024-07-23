@@ -9,4 +9,23 @@ IPS-Update-Failed
 
 # ping updates.checkpoint.com
 # curl_cli https://updates.checkpoint.com
+Error " curl: (60) SSL certificate problem: unable to get local issuer certificate More details here: https://curl.haxx.se/docs/sslcerts.html curl failed to verify the legitimacy of the server and therefore could not establish a secure connection to it. To learn more about this situation and how to fix it, please visit the web page mentioned above. "
 
+
+Resolution
+SK107580
+https://support.checkpoint.com/results/sk/sk107580
+
+Steps
+1. Connect to the command line on the Security Management Server.
+2. Login to Expert mode.
+3. Remove the $FWDIR/conf/SMC_Files/asm/crc_marker_db.fws file:
+  [Expert@HostName:0]# mv -v $FWDIR/conf/SMC_Files/asm/crc_marker_db.fws{,_ORIGINAL}
+
+4. Start Check Point services:
+  [Expert@HostName:0]# cpstart
+
+
+reference :
+https://community.checkpoint.com/t5/Threat-Prevention/IPS-update-Failed/td-p/91105
+https://community.checkpoint.com/t5/Threat-Prevention/Failed-to-update-ips-database/td-p/149921
